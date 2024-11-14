@@ -84,13 +84,12 @@ void GameWindow::revealAdjacent(Tile ***&tilemap, int i, int j) {
         return;
     }
 
+    if (tilemap[i][j]->FLAGGED){
+        return;
+    }
+
     tilemap[i][j]->HIDDEN = false;
     this->NUM_HIDDEN_TILES--;
-
-    if (tilemap[i][j]->FLAGGED){
-        tilemap[i][j]->FLAGGED = false;
-        this->COUNTER++;
-    }
 
     for (int dx = -1; dx <= 1; dx++) {
         for (int dy = -1; dy <= 1; dy++) {
@@ -520,19 +519,17 @@ void GameWindow::rungame(bool &GAME_WINDOW, bool &LEADERBOARD_WINDOW) {
                         if (tilemap[x_position][y_position]) {
                             if (tilemap[x_position][y_position]->HIDDEN) {
                                 (tilemap[x_position][y_position]->PREVIOUSLY_REVEALED = true);
-                                if (tilemap[x_position][y_position]->NEIGHBORS == 0 && !tilemap[x_position][y_position]->MINE){
-                                    revealAdjacent(tilemap, x_position, y_position);
-                                }
-                                else if (tilemap[x_position][y_position]->MINE){
-                                    this->GAME_LOST = true;
-                                }
-                                else {
-                                    tilemap[x_position][y_position]->HIDDEN = false;
-                                    if (tilemap[x_position][y_position]->FLAGGED){
-                                        tilemap[x_position][y_position]->FLAGGED = false;
-                                        this->COUNTER++;
+                                if (!tilemap[x_position][y_position]->FLAGGED){
+                                    if (tilemap[x_position][y_position]->NEIGHBORS == 0 && !tilemap[x_position][y_position]->MINE){
+                                        revealAdjacent(tilemap, x_position, y_position);
                                     }
-                                    this->NUM_HIDDEN_TILES--;
+                                    else if (tilemap[x_position][y_position]->MINE){
+                                        this->GAME_LOST = true;
+                                    }
+                                    else {
+                                        tilemap[x_position][y_position]->HIDDEN = false;
+                                        this->NUM_HIDDEN_TILES--;
+                                    }
                                 }
                             }
                         }
