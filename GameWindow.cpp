@@ -264,7 +264,7 @@ void GameWindow::drawLeaderboard(Tile*** &tilemap, sf::RenderWindow & gamewindow
     if (this->PAUSED){
         previously_paused = true;
     }
-    if (!this->GAME_WON && !GAME_LOST){
+    if (!this->GAME_WON && !this->GAME_LOST){
         this->PAUSED = true;
         for (int i = 0; i < this->NUM_COLUMNS; i++) {
             for (int j = 0; j < this->NUM_ROWS; j++) {
@@ -502,7 +502,7 @@ void GameWindow::rungame(bool &GAME_WINDOW, bool &LEADERBOARD_WINDOW) {
                     // Whatever else
                     continue;
                 }
-                if (!this->GAME_WON){
+                if (!this->GAME_WON && !this->GAME_LOST){
                     if (event.mouseButton.button == sf::Mouse::Button::Right) {
                         if (tilemap[x_position][y_position]) {
                             if (tilemap[x_position][y_position]->HIDDEN && !tilemap[x_position][y_position]->FLAGGED) {
