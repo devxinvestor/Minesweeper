@@ -87,6 +87,11 @@ void GameWindow::revealAdjacent(Tile ***&tilemap, int i, int j) {
     tilemap[i][j]->HIDDEN = false;
     this->NUM_HIDDEN_TILES--;
 
+    if (tilemap[i][j]->FLAGGED){
+        tilemap[i][j]->FLAGGED = false;
+        this->COUNTER++;
+    }
+
     for (int dx = -1; dx <= 1; dx++) {
         for (int dy = -1; dy <= 1; dy++) {
             if (dx == 0 && dy == 0) {
@@ -522,7 +527,11 @@ void GameWindow::rungame(bool &GAME_WINDOW, bool &LEADERBOARD_WINDOW) {
                                     this->GAME_LOST = true;
                                 }
                                 else {
-                                    tilemap[x_position][y_position]->HIDDEN=false;
+                                    tilemap[x_position][y_position]->HIDDEN = false;
+                                    if (tilemap[x_position][y_position]->FLAGGED){
+                                        tilemap[x_position][y_position]->FLAGGED = false;
+                                        this->COUNTER++;
+                                    }
                                     this->NUM_HIDDEN_TILES--;
                                 }
                             }
