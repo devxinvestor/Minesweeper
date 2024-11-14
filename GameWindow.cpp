@@ -81,6 +81,7 @@ void GameWindow::revealAdjacent(Tile ***&tilemap, int i, int j) {
     }
 
     if (tilemap[i][j]->NEIGHBORS > 0) {
+        tilemap[i][j]->HIDDEN = false;
         return;
     }
 
