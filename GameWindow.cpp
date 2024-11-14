@@ -240,7 +240,7 @@ void GameWindow::setMines(Tile*** &tilemap) {
 
         Tile* node = tilemap[i][j];
 
-        if (!node->MINE && (i != 0 && j != 0)) {
+        if (!node->MINE && !(i == 0 && j == 0)) {
             node->MINE = true;
             mines_set++;
         }
