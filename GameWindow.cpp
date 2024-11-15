@@ -82,6 +82,7 @@ void GameWindow::revealAdjacent(Tile ***&tilemap, int i, int j) {
 
     if (tilemap[i][j]->NEIGHBORS > 0) {
         tilemap[i][j]->HIDDEN = false;
+        this->NUM_HIDDEN_TILES--;
         return;
     }
 
@@ -283,7 +284,8 @@ void GameWindow::drawLeaderboard(Tile*** &tilemap, sf::RenderWindow & gamewindow
     }
     gamewindow.display();
 
-    if (this->GAME_WON && this->ELAPSED_BUFFER > 0) {
+
+    if (this->GAME_WON && this->ELAPSED_BUFFER >= 0) {
         std::ofstream file("../files/leaderboard.txt", std::ios::app);
         std::string writer = convertIntToTime(this->TIME_ELAPSED) + ", " + this->USERNAME;
         file << writer << std::endl;
