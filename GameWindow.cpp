@@ -314,6 +314,11 @@ void GameWindow::drawLeaderboard(Tile*** &tilemap, sf::RenderWindow & gamewindow
     std::string allUserOnBoard;
     while (i < 5){
         if (i == 0 && this->TOP_PLAYERS[i].second == this->USERNAME){
+            if (convertTimeToInt(this->TOP_PLAYERS[i].first) != this->TIME_ELAPSED){
+                allUserOnBoard += std::to_string(i+1) + "." + "\t" + this->TOP_PLAYERS[i].first + "\t" + this->TOP_PLAYERS[i].second + "\n\n";
+                i++;
+                continue;
+            }
             allUserOnBoard += std::to_string(i+1) + "." + "\t" + this->TOP_PLAYERS[i].first + "\t" + this->TOP_PLAYERS[i].second + "*" + "\n\n";
             i++;
             continue;
